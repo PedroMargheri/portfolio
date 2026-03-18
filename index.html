@@ -76,7 +76,7 @@
     <div class="sobre-mi-inner">
       <div class="sobre-mi-image">
         <div class="sobre-mi-image-wrapper">
-          <img src="img/perfil.jpg" alt="Pedro Margheri - Fotógrafo profesional">
+          <img src="img/perfil.jpg" alt="Pedro Margheri - Fotógrafo profesional" oncontextmenu="return false;">
         </div>
         <div class="sobre-mi-image-accent"></div>
       </div>
@@ -511,7 +511,7 @@
       </svg>
     </button>
     <div class="lightbox-content">
-      <img id="lightboxImg" src="" alt="Vista ampliada">
+      <img id="lightboxImg" src="" alt="Vista ampliada" oncontextmenu="return false;">
       <div class="lightbox-counter" id="lightboxCounter"></div>
     </div>
   </div>
@@ -559,7 +559,7 @@
     if (galleryGridHtml) {
       const htmlContent = FOTOS_GALERIA.map(foto => `
         <div class="gallery-item">
-          <img src="img/${foto}" alt="Fotografía profesional" loading="lazy">
+          <img src="img/${foto}" alt="Fotografía profesional" loading="lazy" oncontextmenu="return false;">
           <div class="gallery-overlay"></div>
         </div>
       `).join('');
@@ -782,6 +782,19 @@
         floatingWa.classList.remove('show');
       }
     }, { passive: true });
+
+    // ---- Protección de imágenes anti-descarga ----
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.classList.contains('gallery-overlay') || e.target.closest('.lightbox')) {
+        e.preventDefault();
+      }
+    }, false);
+
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    }, false);
   </script>
 
 </body>
